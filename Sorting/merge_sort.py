@@ -2,7 +2,7 @@ import math
 
 
 def mergeSort(iterable):
-    def __merge(startidx, mididx, endidx):
+    def merge(startidx, mididx, endidx):
         num_items_in_left_container = mididx - startidx + 1
         num_items_in_right_container = endidx - mididx
         left_container = [0] * (num_items_in_left_container + 1)
@@ -30,10 +30,6 @@ def mergeSort(iterable):
             mididx = (startidx + endidx) // 2
             merge_sort(startidx, mididx)
             merge_sort(mididx+1, endidx)
-            __merge(startidx, mididx, endidx)
+            merge(startidx, mididx, endidx)
     merge_sort(0, len(iterable)-1)
     return iterable
-
-
-if __name__ == '__main__':
-    print(mergeSort([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))

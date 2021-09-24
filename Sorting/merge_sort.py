@@ -1,35 +1,39 @@
 import math
 
 
-def mergeSort(arr):
-    def __merge(p, q, r):
-        n1 = q - p + 1
-        n2 = r - q
-        L = [0] * (n1 + 1)
-        R = [0] * (n2 + 1)
-        L[-1] = math.inf
-        R[-1] = math.inf
+def mergeSort(iterable):
+    def __merge(startidx, mididx, endidx):
+        num_items_in_left_container = mididx - startidx + 1
+        num_items_in_right_container = endidx - mididx
+        left_container = [0] * (num_items_in_left_container + 1)
+        right_container = [0] * (num_items_in_right_container + 1)
+        left_container[-1] = math.inf
+        right_container[-1] = math.inf
 
-        for i in range(n1):
-            L[i] = arr[p + i]
+        for i in range(num_items_in_left_container):
+            left_container[i] = iterable[startidx + i]
 
-        for j in range(n2):
-            R[j] = arr[q + j + 1]
+        for j in range(num_items_in_right_container):
+            right_container[j] = iterable[mididx + j + 1]
 
         i = j = 0
-        for k in range(p, r+1):
-            if L[i] <= R[j]:
-                arr[k] = L[i]
+        for k in range(startidx, endidx+1):
+            if left_container[i] <= right_container[j]:
+                iterable[k] = left_container[i]
                 i += 1
             else:
-                arr[k] = R[j]
+                iterable[k] = right_container[j]
                 j += 1
 
-    def merge_sort(p, r):
-        if p < r:
-            q = (p + r) // 2
-            merge_sort(p, q)
-            merge_sort(q+1, r)
-            __merge(p, q, r)
-    merge_sort(0, len(arr)-1)
-    return arr
+    def merge_sort(startidx, endidx):
+        if startidx < endidx:
+            mididx = (startidx + endidx) // 2
+            merge_sort(startidx, mididx)
+            merge_sort(mididx+1, endidx)
+            __merge(startidx, mididx, endidx)
+    merge_sort(0, len(iterable)-1)
+    return iterable
+
+
+if __name__ == '__main__':
+    print(mergeSort([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))

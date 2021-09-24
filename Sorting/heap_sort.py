@@ -1,41 +1,47 @@
 def heapSort(iterable):
     # region Modified Max Heap
-    class MaxHeap:
-        def __init__(self) -> None:
-            self.size = len(iterable)
-            self.left = (lambda i: (2 * i) + 1)
-            self.right = (lambda i: (2 * i) + 2)
-            self.parent = (lambda i: (i // 2))
-            if self.size > 1:
-                self.build_heap()
+    size = len(iterable)
+    left_child = (lambda i: (2 * i) + 1)
+    right_child = (lambda i: (2 * i) + 2)
 
-        def exchange(self, idx1, idx2) -> None:
-            temp = iterable[idx1]
-            iterable[idx1] = iterable[idx2]
-            iterable[idx2] = temp
+    def exchange(idx1, idx2) -> None:
+        temp = iterable[idx1]
+        iterable[idx1] = iterable[idx2]
+        iterable[idx2] = temp
 
-        def heaplify(self, idx) -> None:
-            left = self.left(idx)
-            right = self.right(idx)
-            largest_idx = idx
-            if left < self.size and iterable[left] > iterable[idx]:
-                largest_idx = left
+    def heaplify(idx) -> None:
+        left = left_child(idx)
+        right = right_child(idx)
+        largest_idx = idx
+        if left < size and iterable[left] > iterable[idx]:
+            largest_idx = left
 
-            if right < self.size and iterable[right] > iterable[largest_idx]:
-                largest_idx = right
+        if right < size and iterable[right] > iterable[largest_idx]:
+            largest_idx = right
 
-            if largest_idx != idx:
-                self.exchange(idx, largest_idx)
-                self.heaplify(largest_idx)
+        if largest_idx != idx:
+            exchange(idx, largest_idx)
+            heaplify(largest_idx)
 
-        def build_heap(self) -> None:
-            for i in reversed(range(self.size // 2)):
-                self.heaplify(i)
+    def build_heap() -> None:
+        for i in reversed(range(size // 2)):
+            heaplify(i)
+
+    if size > 1:
+        build_heap()
     # endregion
 
-    heap = MaxHeap()
+    build_heap()
     for i in reversed(range(1, len(iterable))):
-        heap.exchange(0, i)
-        heap.size -= 1
-        heap.heaplify(0)
+        exchange(0, i)
+        size -= 1
+        heaplify(0)
     return iterable
+
+
+def main():
+    print(heapSort([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))
+
+
+if __name__ == '__main__':
+    main()

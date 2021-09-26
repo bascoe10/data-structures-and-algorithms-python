@@ -8,9 +8,9 @@ class SimpleTreeNode:
 class AdvanceTreeNode:
     def __init__(self, val, parent=None, left=None, right=None) -> None:
         self.val = val
-        self.parent = parent
-        self.left = left
-        self.right = right
+        self.parent: AdvanceTreeNode = parent
+        self.left: AdvanceTreeNode = left
+        self.right: AdvanceTreeNode = right
 
 
 class SingleListNode:

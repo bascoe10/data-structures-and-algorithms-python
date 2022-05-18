@@ -35,6 +35,18 @@ class SinglyLinkedList:
             prev.next = node.next
             self.__size -= 1
 
+    def head(self) -> SingleListNode:
+        return self.__head.next
+
+    def size(self) -> int:
+        return self.__size
+
+    def removeHead(self) -> SingleListNode:
+        if self.__head.next:
+            resp = self.__head.next
+            self.__head.next = resp.next
+            return resp
+
 
 class DoublyLinkedList:
     def __init__(self) -> None:
